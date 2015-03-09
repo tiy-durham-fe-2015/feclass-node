@@ -1,12 +1,23 @@
 var express = require('express'),
-    app = express();
+    bodyParser = require('body-parser'),
+    app = express(),
+    friends = [{
+      name: 'Matt',
+      gender: 'm'
+    }, {
+      name: 'Sally',
+      gender: 'f'
+    }];
+
+// Allow JSON posts/puts
+app.use(bodyParser.json());
 
 // Add a route, so when you HTTP request GET /api/friends, this route
 // will run.
 // req = the request (incoming data from the client)
 // res = the response (outgoing data to the client)
 app.get('/api/friends', function (req, res) {
-  res.send('Hello, world!!!!!!!!!!');
+  res.json(friends);
 });
 
 // Start the server
