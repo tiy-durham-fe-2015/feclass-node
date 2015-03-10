@@ -1,13 +1,8 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
-    friends = [{
-      name: 'Matt',
-      gender: 'm'
-    }, {
-      name: 'Sally',
-      gender: 'f'
-    }];
+    Nedb = require('nedb'),
+    db = new Nedb();
 
 // Allow JSON posts/puts
 app.use(bodyParser.json());
@@ -21,12 +16,20 @@ app.use('/dist', express.static(__dirname + '/dist'));
 // req = the request (incoming data from the client)
 // res = the response (outgoing data to the client)
 app.get('/api/friends', function (req, res) {
-  res.json(friends);
+  db.find({}, function (err, friends) {
+    res.json(friends);
+  });
 });
 
 app.post('/api/friends', function (req, res) {
-  friends.push(req.body);
-  res.json(req.body);
+  var friend = {
+    name: req.body.name,
+    gender: req.body.gender
+  };
+
+  db.insert(friend, function (err, friendRecord) {
+    res.json(friendRecord);
+  });
 });
 
 // Start the server
@@ -36,3 +39,26 @@ var server = app.listen(process.env.PORT || 3000, function () {
 
   console.log('Feclass listening at http://%s:%s', host, port);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///
