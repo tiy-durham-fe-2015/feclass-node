@@ -9,7 +9,8 @@
     "url": "https://github.com/tiy-durham-fe-2015/feclass"
   },
   "scripts": {
-    "scss": "node-sass src/css/main.scss dist/main.css"
+    "scss": "node-sass src/css/main.scss dist/main.css",
+    "js": "cp src/app.js dist/app.js && find src/** -type f -name '*.js' ! -name 'app.js' ! -name 'init.js' -print0 | sort -z | xargs -0 cat -- >>dist/app.js && cat src/init.js >> dist/app.js"
   },
   "dependencies": {
     "body-parser": "^1.12.0",
