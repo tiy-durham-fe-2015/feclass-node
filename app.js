@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 
 // Specify src as the place where public files are found
 app.use(express.static(__dirname + '/src'));
+app.use('/dist', express.static(__dirname + '/dist'));
 
 // Add a route, so when you HTTP request GET /api/friends, this route
 // will run.
